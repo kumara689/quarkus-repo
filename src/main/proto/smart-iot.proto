@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.kithsiri.quarkus.iot";
+
+package iot;
+
+service SmartModelService {
+    rpc saveSmartModel (SmartModel) returns (SmartModelResponse) {}
+    rpc retrieveSmartModelById(RetrieveSmartModelById) returns (RetrieveSmartModelResponse) {}
+    rpc retrieveSmartModelsByName(RetrieveSmartModelByName) returns (RetrieveSmartModelListResponse) {}
+    rpc retrieveSmartModelsByType(RetrieveSmartModelByType) returns (RetrieveSmartModelListResponse) {}
+    rpc retrieveSmartModelByCategory(RetrieveSmartModelByCategory) returns (RetrieveSmartModelListResponse) {}
+}
+
+message SmartModel {
+    int64 id = 1;
+    string name = 2;
+    string category = 3;
+    string ipAddress = 4;
+    string status = 5;
+    string timeZone = 6;
+    string type = 7;
+    string miscellaneous = 8;
+    repeated SmartFeature smartFeature = 9;
+}
+
+message SmartFeature{
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message SmartModelResponse {
+    string message = 1;
+}
+
+message RetrieveSmartModelById{
+    string id = 1;
+}
+
+message RetrieveSmartModelByName{
+    string name = 1;
+}
+
+message RetrieveSmartModelByType{
+    string type = 1;
+}
+
+message RetrieveSmartModelByCategory{
+    string category = 1;
+}
+
+message RetrieveSmartModelResponse{
+    SmartModel model = 1;
+}
+
+message RetrieveSmartModelListResponse{
+    repeated SmartModel models = 1;
+}
